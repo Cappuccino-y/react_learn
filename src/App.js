@@ -12,8 +12,28 @@ function  Hello(prop){
 
 function App() {
     const [count,setCount]=React.useState(0)
+    const [cal,setAns]=React.useState({
+        num1:3,
+        num2:4,
+        response:''
+    })
     function update(){
         setCount(count+1)
+    }
+    function answer(event){
+        setAns({...cal,response:event.target.value})
+    }
+    function inputPress(event) {
+        console.log(event.target.value)
+        if (event.key=== 'Enter') {
+            const answer=parseInt(cal.response)
+            if (answer=== (cal.num1 + cal.num2)) {
+                alert("Right")
+            } else {
+                alert('Wrong')
+            }
+            setAns({...cal, response: ''})
+        }
     }
   return (
       <div>
@@ -33,8 +53,10 @@ function App() {
         </a>
       </header>
     </div>
-          <Hello/>
-    <button onClick={update}>Click to count</button>
+    <Hello/>
+    <p >{cal.num1}+{cal.num2}?</p>
+    <input onKeyPress={inputPress} onChange={answer} value={cal.response}/>
+    <button  onClick={update}>Click to count</button>
           {count}
       </div>
   );
